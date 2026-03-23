@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic Issue Reporter - Jharkhand</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        .header {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #4267B2;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Token Display Box */
+        .token-box {
+            background: linear-gradient(to right, #4267B2, #5b7fc9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .token-box .amount {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        /* Tab Buttons */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tab-btn:hover {
+            background: #f8f9fa;
+        }
+
+        .tab-btn.active {
+            background: #4267B2;
+            color: white;
+        }
+
+        /* Content Box */
+        .content {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Form Styling */
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        .form-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-section input,
+        .form-section select,
+        .form-section textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .form-section input:focus,
+        .form-section select:focus,
+        .form-section textarea:focus {
+            border-color: #4267B2;
+            outline: none;
+        }
+
+        /* Image Upload Box */
+        .upload-box {
+            border: 2px dashed #4267B2;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #f8f9ff;
+        }
+
+        .upload-box:hover {
+            background: #e8ebff;
+        }
+
+        .preview-img {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-blue {
+            background: #4267B2;
+            color: white;
+        }
+
+        .btn-blue:hover {
+            background: #365899;
+        }
+
+        .btn-red {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-red:hover {
+            background: #c82333;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #4267B2;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .info-box h4 {
+            margin-bottom: 10px;
+            color: #4267B2;
+        }
+
+        .reward-box {
+            background: linear-gradient(to right, #28a745, #34ce57);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .reward-box .big-number {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        /* Report Cards */
+        .report-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #4267B2;
+        }
+
+        .report-item h3 {
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .report-item p {
+            color: #666;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .badge-green {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-orange {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-blue {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        /* Redeem Cards */
+        .redeem-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .redeem-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .redeem-card:hover {
+            transform: scale(1.05);
+            transition: 0.3s;
+        }
+
+        .redeem-card .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        /* Warning Box */
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #856404;
+        }
+
+        /* Landmark items */
+        .landmark-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .tabs {
+                flex-direction: column;
+            }
+            .redeem-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Success Message */
+        .success-msg {
+            background: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .success-msg.show {
+            display: block;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏛️ Civic Issue Reporter</h1>
+            <p>Government of Jharkhand - Smart City Initiative</p>
+        </div>
+
+        <!-- Token Display -->
+        <div class="token-box">
+            <div>
+                <div style="font-size: 14px;">My Tokens</div>
+                <div class="amount" id="displayTokens">0</div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 14px;">Cash Value</div>
+                <div style="font-size: 20px; font-weight: bold;">₹<span id="displayCash">0</span></div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('report')">📝 Report Issue</button>
+            <button class="tab-btn" onclick="openTab('track')">📍 My Reports</button>
+            <button class="tab-btn" onclick="openTab('wallet')">💰 Wallet</button>
+            <button class="tab-btn" onclick="openTab('malpractice')">🚨 Report Fake</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Tab 1: Report Issue -->
+            <div id="report" class="tab-content active">
+                <h2 style="margin-bottom: 20px;">📝 Report a Problem</h2>
+                
+                <div class="success-msg" id="successMsg"></div>
+
+                <form id="reportForm">
+                    <!-- Photo Upload -->
+                    <div class="form-section">
+                        <label>📸 Take Photo *</label>
+                        <div class="upload-box" onclick="document.getElementById('photo').click()">
+                            <p>Click here to upload photo</p>
+                            <img id="photoPreview" class="preview-img" style="display:none;">
+                        </div>
+                        <input type="file" id="photo" accept="image/*" style="display:none;" onchange="showPhoto(event)">
+                    </div>
+
+                    <!-- Category -->
+                    <div class="form-section">
+                        <label>📂 What's the Problem? *</label>
+                        <select id="category" required onchange="updateReward()">
+                            <option value="">Select problem type</option>
+                            <option value="Roads">Road/Pothole Issue</option>
+                            <option value="Streetlight">Streetlight Not Working</option>
+                            <option value="Garbage">Garbage/Cleanliness</option>
+                            <option value="Water">Water Supply Problem</option>
+                            <option value="Traffic">Traffic Issue</option>
+                            <option value="Park">Park/Garden Issue</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Nearby Landmark -->
+                    <div class="form-section">
+                        <label>🏢 Nearby Landmark *</label>
+                        <select id="landmark" required onchange="updateReward()">
+                            <option value="">Select nearest landmark</option>
+                            <option value="hospital">🏥 Hospital/Clinic</option>
+                            <option value="school">🏫 School/College</option>
+                            <option value="market">🏪 Market/Shopping Area</option>
+                            <option value="road">🛣️ Main Road/Highway</option>
+                            <option value="home">🏘️ Residential Area</option>
+                        </select>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="form-section">
+                        <label>📍 Exact Location</label>
+                        <input type="text" id="location" placeholder="Enter street name or area" value="Ashta, Jharkhand">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-section">
+                        <label>📝 Describe the Problem *</label>
+                        <textarea id="description" rows="4" placeholder="Tell us what's wrong..." required></textarea>
+                    </div>
+
+                    <!-- Priority Info (Auto-calculated) -->
+                    <div class="info-box">
+                        <h4>ℹ️ How We Calculate Priority</h4>
+                        <div class="landmark-item">
+                            <span>🏥 Hospital/Clinic</span>
+                            <span style="color: #28a745; font-weight: bold;">High Priority (2x tokens)</span>
+                        </div>
+                        <div class="landmark-item">
+                            <span>🏫 School/College</span>
+                            <span style="color: #28a745; font-weight: bold;">High Priority (1.8x tokens)</span>
+                        </div>
+                        <div class="landmark-item">
+                            <span>🏪 Market Area</span>
+                            <span style="color: #ffc107; font-weight: bold;">Medium Priority (1.5x tokens)</span>
+                        </div>
+                        <div class="landmark-item">
+                            <span>🛣️ Main Road</span>
+                            <span style="color: #ffc107; font-weight: bold;">Medium Priority (1.3x tokens)</span>
+                        </div>
+                        <div class="landmark-item">
+                            <span>🏘️ Residential</span>
+                            <span style="font-weight: bold;">Normal Priority (1x tokens)</span>
+                        </div>
+                    </div>
+
+                    <!-- Expected Reward -->
+                    <div id="rewardDisplay" class="reward-box" style="display:none;">
+                        <div style="font-size: 14px; margin-bottom: 5px;">You will earn</div>
+                        <div class="big-number" id="tokenReward">0</div>
+                        <div>tokens (after verification)</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-blue">🚀 Submit Report</button>
+                </form>
+            </div>
+
+            <!-- Tab 2: Track Reports -->
+            <div id="track" class="tab-content">
+                <h2 style="margin-bottom: 20px;">📍 My Reports</h2>
+                <div id="reportsList">
+                    <!-- Reports will be loaded here from localStorage -->
+                </div>
+            </div>
+
+            <!-- Tab 3: Wallet -->
+            <div id="wallet" class="tab-content">
+                <h2 style="margin-bottom: 20px;">💰 My Wallet</h2>
+                
+                <div style="background: linear-gradient(to right, #28a745, #34ce57); color: white; padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 50px; font-weight: bold;" id="walletTokens">0</div>
+                    <div style="font-size: 18px;">Civic Tokens</div>
+                    <div style="font-size: 14px; margin-top: 5px;">= ₹<span id="walletCash">0</span></div>
+                </div>
+
+                <h3 style="margin-bottom: 15px;">🎁 Redeem Your Tokens</h3>
+                <div class="redeem-grid">
+                    <div class="redeem-card" onclick="redeem('voucher', 500, 50)">
+                        <div class="icon">🎁</div>
+                        <h4>Gift Voucher</h4>
+                        <p>500 tokens = ₹50</p>
+                    </div>
+                    <div class="redeem-card" onclick="redeem('bank', 1000, 100)">
+                        <div class="icon">💳</div>
+                        <h4>Bank Transfer</h4>
+                        <p>1000 tokens = ₹100</p>
+                    </div>
+                    <div class="redeem-card" onclick="redeem('mobile', 300, 30)">
+                        <div class="icon">📱</div>
+                        <h4>Mobile Recharge</h4>
+                        <p>300 tokens = ₹30</p>
+                    </div>
+                    <div class="redeem-card" onclick="redeem('tree', 200, 'plant')">
+                        <div class="icon">🌱</div>
+                        <h4>Plant a Tree</h4>
+                        <p>200 tokens = 1 tree</p>
+                    </div>
+                </div>
+
+                <h3 style="margin: 30px 0 15px;">📊 Token History</h3>
+                <div id="tokenHistory">
+                    <!-- Token history will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Tab 4: Report Malpractice -->
+            <div id="malpractice" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: #dc3545;">🚨 Report Fake Issue</h2>
+                <p style="margin-bottom: 15px; color: #666;">Saw someone creating a fake problem for tokens? Report them here.</p>
+
+                <div style="background: #dc3545; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <strong>Reward:</strong> Get 200 tokens if your report is verified!
+                </div>
+
+                <form id="malpracticeForm">
+                    <div class="form-section">
+                        <label>🔗 Related Report ID (if you know)</label>
+                        <input type="text" id="relatedId" placeholder="e.g., RPT001">
+                    </div>
+
+                    <div class="form-section">
+                        <label>📸 Photo of Person Creating Fake Issue *</label>
+                        <div class="upload-box" onclick="document.getElementById('culpritPhoto').click()">
+                            <p>Click to upload photo</p>
+                            <img id="culpritPreview" class="preview-img" style="display:none;">
+                        </div>
+                        <input type="file" id="culpritPhoto" accept="image/*" style="display:none;" onchange="showCulprit(event)" required>
+                    </div>
+
+                    <div class="form-section">
+                        <label>📍 Where did this happen?</label>
+                        <input type="text" id="malpracticeLocation" placeholder="Location">
+                    </div>
+
+                    <div class="form-section">
+                        <label>📝 What did you see? *</label>
+                        <textarea id="malpracticeDesc" rows="4" placeholder="Describe what the person was doing..." required></textarea>
+                    </div>
+
+                    <div class="warning">
+                        ⚠️ <strong>Important:</strong> Fake reports will result in account ban and loss of all tokens.
+                    </div>
+
+                    <button type="submit" class="btn btn-red">🚨 Submit Report</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Token reward calculation table (simple version)
+        const tokenTable = {
+            'Roads': 150,
+            'Streetlight': 100,
+            'Garbage': 120,
+            'Water': 200,
+            'Traffic': 130,
+            'Park': 80,
+            'Other': 100
+        };
+
+        // Landmark multipliers (based on importance)
+        const landmarkBonus = {
+            'hospital': 2.0,    // Hospitals are most important
+            'school': 1.8,      // Schools are very important
+            'market': 1.5,      // Markets have many people
+            'road': 1.3,        // Main roads are important
+            'home': 1.0         // Normal areas
+        };
+
+        // Initialize on page load
+        window.onload = function() {
+            loadTokens();
+            loadReports();
+            updateDisplay();
+        };
+
+        // Load tokens from storage
+        function loadTokens() {
+            let saved = localStorage.getItem('userTokens');
+            if (!saved) {
+                // First time user, give welcome bonus
+                localStorage.setItem('userTokens', '100');
+            }
+        }
+
+        // Get current token balance
+        function getTokens() {
+            return parseInt(localStorage.getItem('userTokens')) || 0;
+        }
+
+        // Save tokens to storage
+        function saveTokens(amount) {
+            localStorage.setItem('userTokens', amount.toString());
+            updateDisplay();
+        }
+
+        // Update all token displays on page
+        function updateDisplay() {
+            let tokens = getTokens();
+            let cash = (tokens * 0.1).toFixed(2); // 1 token = 0.10 rupees
+            
+            document.getElementById('displayTokens').textContent = tokens;
+            document.getElementById('displayCash').textContent = cash;
+            document.getElementById('walletTokens').textContent = tokens;
+            document.getElementById('walletCash').textContent = cash;
+        }
+
+        // Calculate reward based on category and landmark
+        function updateReward() {
+            let category = document.getElementById('category').value;
+            let landmark = document.getElementById('landmark').value;
+            
+            if (!category || !landmark) return;
+            
+            // Base tokens from category
+            let baseTokens = tokenTable[category] || 100;
+            
+            // Multiply by landmark bonus
+            let bonus = landmarkBonus[landmark] || 1.0;
+            let totalTokens = Math.round(baseTokens * bonus);
+            
+            // Show the reward
+            document.getElementById('tokenReward').textContent = totalTokens;
+            document.getElementById('rewardDisplay').style.display = 'block';
+        }
+
+        // Show uploaded photo
+        function showPhoto(event) {
+            let file = event.target.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('photoPreview').src = e.target.result;
+                    document.getElementById('photoPreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Show culprit photo
+        function showCulprit(event) {
+            let file = event.target.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('culpritPreview').src = e.target.result;
+                    document.getElementById('culpritPreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Submit report form
+        document.getElementById('reportForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            let category = document.getElementById('category').value;
+            let landmark = document.getElementById('landmark').value;
+            let location = document.getElementById('location').value;
+            let description = document.getElementById('description').value;
+            
+            // Calculate tokens
+            let baseTokens = tokenTable[category] || 100;
+            let bonus = landmarkBonus[landmark] || 1.0;
+            let estimatedTokens = Math.round(baseTokens * bonus);
+            
+            // Generate report ID
+            let reportId = 'RPT' + Math.floor(Math.random() * 10000);
+            
+            // Create report object
+            let report = {
+                id: reportId,
+                category: category,
+                landmark: landmark,
+                location: location,
+                description: description,
+                estimatedTokens: estimatedTokens,
+                status: 'Pending',
+                date: new Date().toLocaleDateString(),
+                tokensEarned: 0
+            };
+            
+            // Save to localStorage
+            let reports = JSON.parse(localStorage.getItem('reports') || '[]');
+            reports.push(report);
+            localStorage.setItem('reports', JSON.stringify(reports));
+            
+            // Show success message
+            let msg = document.getElementById('successMsg');
+            msg.textContent = `✅ Report ${reportId} submitted! You'll get ${estimatedTokens} tokens after verification.`;
+            msg.classList.add('show');
+            
+            // Reset form
+            document.getElementById('reportForm').reset();
+            document.getElementById('photoPreview').style.display = 'none';
+            document.getElementById('rewardDisplay').style.display = 'none';
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                msg.classList.remove('show');
+            }, 5000);
+            
+            // Reload reports
+            loadReports();
+        };
+
+        // Load and display all reports
+        function loadReports() {
+            let reports = JSON.parse(localStorage.getItem('reports') || '[]');
+            let container = document.getElementById('reportsList');
+            let historyContainer = document.getElementById('tokenHistory');
+            
+            if (reports.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No reports yet. Submit your first report!</p></div>';
+                historyContainer.innerHTML = '<div class="empty-state"><p>No earnings yet</p></div>';
+                return;
+            }
+            
+            // Display reports (newest first)
+            container.innerHTML = '';
+            historyContainer.innerHTML = '';
+            
+            reports.reverse().forEach(report => {
+                // Main report card
+                let statusClass = report.status === 'Verified' ? 'badge-green' : 
+                                report.status === 'Pending' ? 'badge-orange' : 'badge-blue';
+                
+                let card = `
+                    <div class="report-item">
+                        <h3>${report.description.substring(0, 50)}...</h3>
+                        <p>📂 ${report.category} • 📍 ${report.location}</p>
+                        <p>🆔 ${report.id} • 📅 ${report.date}</p>
+                        <p>🏢 Near: ${getLandmarkName(report.landmark)}</p>
+                        <span class="badge ${statusClass}">${report.status}</span>
+                        ${report.tokensEarned > 0 ? 
+                            `<span class="badge badge-green" style="margin-left: 10px;">💰 +${report.tokensEarned} tokens</span>` :
+                            `<span class="badge badge-orange" style="margin-left: 10px;">⏳ ~${report.estimatedTokens} tokens</span>`
+                        }
+                    </div>
+                `;
+                container.innerHTML += card;
+                
+                // Token history (only verified)
+                if (report.tokensEarned > 0) {
+                    let history = `
+                        <div class="report-item">
+                            <div style="display: flex; justify-content: space-between;">
+                                <div>
+                                    <strong>${report.description.substring(0, 40)}...</strong>
+                                    <p style="margin-top: 5px;">${report.date}</p>
+                                </div>
+                                <div style="text-align: right; color: #28a745;">
+                                    <div style="font-size: 24px; font-weight: bold;">+${report.tokensEarned}</div>
+                                    <div style="font-size: 12px;">Verified</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    historyContainer.innerHTML += history;
+                }
+            });
+        }
+
+        // Helper function to get landmark display name
+        function getLandmarkName(landmark) {
+            const names = {
+                'hospital': 'Hospital/Clinic',
+                'school': 'School/College',
+                'market': 'Market Area',
+                'road': 'Main Road',
+                'home': 'Residential Area'
+            };
+            return names[landmark] || landmark;
+        }
+
+        // Redeem tokens
+        function redeem(type, tokensNeeded, value) {
+            let currentTokens = getTokens();
+            
+            if (currentTokens < tokensNeeded) {
+                alert(`You need ${tokensNeeded} tokens to redeem this. You have ${currentTokens} tokens.`);
+                return;
+            }
+            
+            let valueText = typeof value === 'number' ? `₹${value}` : value;
+            let confirmed = confirm(`Redeem ${tokensNeeded} tokens for ${valueText}?`);
+            
+            if (confirmed) {
+                saveTokens(currentTokens - tokensNeeded);
+                alert(`Success! Your redemption request has been submitted. You will receive confirmation shortly.`);
+            }
+        }
+
+        // Malpractice report form
+        document.getElementById('malpracticeForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            let malpracticeId = 'MAL' + Math.floor(Math.random() * 10000);
+            
+            alert(`Malpractice report ${malpracticeId} submitted!\n\nOur team will investigate. If verified, you'll get 200 tokens.`);
+            
+            // Simulate verification (in real app, admin would verify)
+            let simulate = confirm('DEMO: Simulate verification? (Click OK to get 200 tokens)');
+            if (simulate) {
+                let currentTokens = getTokens();
+                saveTokens(currentTokens + 200);
+                alert('Report verified! You earned 200 tokens! 🎉');
+            }
+            
+            // Reset form
+            document.getElementById('malpracticeForm').reset();
+            document.getElementById('culpritPreview').style.display = 'none';
+        };
+
+        // Switch tabs
+        function openTab(tabName) {
+            // Hide all tabs
+            let tabs = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            // Remove active class from buttons
+            let buttons = document.getElementsByClassName('tab-btn');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // DEMO FUNCTION: Simulate report verification
+        // In production, admin would do this
+        function simulateVerification() {
+            let reports = JSON.parse(localStorage.getItem('reports') || '[]');
+            if (reports.length > 0) {
+                let pendingReports = reports.filter(r => r.status === 'Pending');
+                if (pendingReports.length > 0) {
+                    let report = pendingReports[0];
+                    report.status = 'Verified';
+                    report.tokensEarned = report.estimatedTokens;
+                    
+                    // Update in localStorage
+                    reports = reports.map(r => r.id === report.id ? report : r);
+                    localStorage.setItem('reports', JSON.stringify(reports));
+                    
+                    // Add tokens to user
+                    let currentTokens = getTokens();
+                    saveTokens(currentTokens + report.tokensEarned);
+                    
+                    alert(`Report ${report.id} verified! You earned ${report.tokensEarned} tokens! 🎉`);
+                    loadReports();
+                } else {
+                    alert('No pending reports to verify');
+                }
+            } else {
+                alert('No reports yet!');
+            }
+        }
+
+        // Add demo button (remove in production)
+        console.log('DEMO MODE: Type simulateVerification() in console to verify a report');
+    </script>
+</body>
+</html>
